@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Housing Price Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body{
+            background: url("https://c4.wallpaperflare.com/wallpaper/693/769/205/waterfall-jungle-forest-hd-wallpaper-preview.jpg") no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(26, 188, 156, 0.2) 100%);
+            z-index: 0;
+        }
+        .container {
+            max-width: 1000px;
+        }
+        .title-container {
+            text-align: center;
+            margin: 2rem 0 2.5rem;
+            width: 100%;
+            padding: 0 15px;
+        }
+        
+        h1 {
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+            padding: 20px 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 i {
+            color: #2ecc71;
+            margin-right: 10px;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        h1::before, h1::after {
+            content: '🌿';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        h1::before {
+            left: -30px;
+        }
+
+        h1::after {
+            right: -30px;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.65);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: skewX(-15deg);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            50%, 100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        .form-label {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+        
+        .form-label i {
+            color: #27ae60;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            position: relative;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-control {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px 12px 12px 50px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            color: #2c3e50;
+            height: auto;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+        }
+        .form-control:focus {
+            border-color: rgba(46, 204, 113, 0.5);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.15);
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateY(-2px);
+        }
+        .form-control:hover {
+            border-color: rgba(46, 204, 113, 0.3);
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.75);
+        }
+        .btn-predict {
+            background: linear-gradient(90deg, #2ecc71 0%, #1abc9c 100%);
+            border: none;
+            padding: 15px 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-predict::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+        
+        .btn-predict:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.5);
+        }
+        
+        .btn-predict:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .btn-predict:active {
+            transform: translateY(-1px);
+        }
+        .result-modal .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        .result-modal .modal-header {
+            background: linear-gradient(90deg, #2ecc71 0%, #1abc9c 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+        }
+        .price-value {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #2ecc71 0%, #1abc9c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        .input-with-icon {
+            padding-left: 40px;
+        }
+        .feature-group {
+            position: relative;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-group:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-group i {
+            color: #2ecc71;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(25%);
+            transition: all 0.3s ease;
+            opacity: 1;
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+            z-index: 2;
+        }
+        
+        .feature-group:hover i {
+            color: #27ae60;
+            transform: translateY(25%) scale(1.1);
+            text-shadow: 2px 2px 4px rgba(46, 204, 113, 0.3);
+        }
+
+        /* Add decorative elements */
+        .form-container::after {
+            content: '🏠';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.2;
+            transform: rotate(15deg);
+        }
+
+        .feature-group::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(46, 204, 113, 0.2), transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-container">
+            <h1><i class="fas fa-home me-2"></i>California Housing Price Predictor</h1>
+        </div>
+        
+        <div class="form-container">
+            <form action="/form" method="post" class="row g-4">
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="MedInc" class="form-label">
+                            <i class="fas fa-dollar-sign me-2"></i>Median Income
+                        </label>
+                        <input type="number" step="0.01" class="form-control input-with-icon" id="MedInc" name="MedInc" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="HouseAge" class="form-label">
+                            <i class="fas fa-calendar-alt me-2"></i>House Age
+                        </label>
+                        <input type="number" step="0.01" class="form-control input-with-icon" id="HouseAge" name="HouseAge" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="AveRooms" class="form-label">
+                            <i class="fas fa-door-open me-2"></i>Average Rooms
+                        </label>
+                        <input type="number" step="0.01" class="form-control input-with-icon" id="AveRooms" name="AveRooms" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="AveBedrms" class="form-label">
+                            <i class="fas fa-bed me-2"></i>Average Bedrooms
+                        </label>
+                        <input type="number" step="0.01" class="form-control input-with-icon" id="AveBedrms" name="AveBedrms" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="Population" class="form-label">
+                            <i class="fas fa-users me-2"></i>Population
+                        </label>
+                        <input type="number" step="0.01" class="form-control input-with-icon" id="Population" name="Population" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="AveOccup" class="form-label">
+                            <i class="fas fa-user-friends me-2"></i>Average Occupancy
+                        </label>
+                        <input type="number" step="0.01" class="form-control input-with-icon" id="AveOccup" name="AveOccup" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="Latitude" class="form-label">
+                            <i class="fas fa-map-marker-alt me-2"></i>Latitude
+                        </label>
+                        <input type="number" step="0.000001" class="form-control input-with-icon" id="Latitude" name="Latitude" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="feature-group">
+                        <label for="Longitude" class="form-label">
+                            <i class="fas fa-map-marker me-2"></i>Longitude
+                        </label>
+                        <input type="number" step="0.000001" class="form-control input-with-icon" id="Longitude" name="Longitude" required>
+                    </div>
+                </div>
+                
+                <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-predict btn-lg text-white">
+                        <i class="fas fa-calculator me-2"></i>Predict Price
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    {% if prediction is not none %}
+    <div class="modal result-modal show" id="resultModal" tabindex="-1" style="display: block; background: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-chart-line me-2"></i>Prediction Result
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="fas fa-home fa-3x mb-3" style="color: #4481eb;"></i>
+                        <h6 class="text-muted mb-3">Predicted House Price</h6>
+                        <p class="price-value mb-0">${{ prediction }}k</p>
+                        <p class="text-muted mt-2">
+                            <i class="far fa-clock me-1"></i>
+                            Prediction made at: {{ now }}
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-predict" onclick="closeModal()">
+                        <i class="fas fa-check me-2"></i>Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+artifact_path: file:///C:\Users\ahc38\OneDrive\Atharv Chaudhari\Projects\Machine Learning\House-Price-Prediction-MLOPS-End2End-Pipeline\California-Housing-Price-Prediction\mlruns/274504535896844515/models/m-866a47fc54834fba92f9aec24ead25ad/artifacts
+flavors:
+  python_function:
+    data: model.xgb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.12.7
+  xgboost:
+    code: null
+    data: model.xgb
+    model_class: xgboost.sklearn.XGBRegressor
+    model_format: xgb
+    xgb_version: 3.0.2
+is_signature_from_type_hint: false
+mlflow_version: 3.1.4
+model_id: m-866a47fc54834fba92f9aec24ead25ad
+model_size_bytes: 457089
+model_uuid: m-866a47fc54834fba92f9aec24ead25ad
+prompts: null
+run_id: 763ae8b6decf490fbdad66ad2199631f
+saved_input_example_info:
+  artifact_path: input_example.json
+  serving_input_path: serving_input_example.json
+  type: ndarray
+signature:
+  inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1, 10]}}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float32", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-07-27 09:56:14.578433'

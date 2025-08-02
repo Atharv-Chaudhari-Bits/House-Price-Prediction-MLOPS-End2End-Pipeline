@@ -1,0 +1,11 @@
+artifact_location: file:///C:\Users\ahc38\OneDrive\Atharv Chaudhari\Projects\Machine
+  Learning\House-Price-Prediction-MLOPS-End2End-Pipeline\California-Housing-Price-Prediction\mlruns/274504535896844515/models/m-866a47fc54834fba92f9aec24ead25ad/artifacts
+creation_timestamp: 1753610174460
+experiment_id: '274504535896844515'
+last_updated_timestamp: 1753610185938
+model_id: m-866a47fc54834fba92f9aec24ead25ad
+model_type: null
+name: xgboost_model
+source_run_id: 763ae8b6decf490fbdad66ad2199631f
+status: 2
+status_message: null

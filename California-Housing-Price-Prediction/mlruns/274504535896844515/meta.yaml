@@ -1,0 +1,7 @@
+artifact_location: file:///C:\Users\ahc38\OneDrive\Atharv Chaudhari\Projects\Machine
+  Learning\House-Price-Prediction-MLOPS-End2End-Pipeline\California-Housing-Price-Prediction\mlruns/274504535896844515
+creation_time: 1753609209891
+experiment_id: '274504535896844515'
+last_update_time: 1753609209891
+lifecycle_stage: active
+name: CaliforniaHousing_XGBoost

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\ahc38\OneDrive\Atharv Chaudhari\Projects\Machine Learning\House-Price-Prediction-MLOPS-End2End-Pipeline\California-Housing-Price-Prediction\mlruns/274504535896844515/8c3e82a1e233496793a654a3944a0aac/artifacts
+end_time: 1753609876617
+entry_point_name: ''
+experiment_id: '274504535896844515'
+lifecycle_stage: active
+run_id: 8c3e82a1e233496793a654a3944a0aac
+run_name: XGBRegressor_v1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753609862338
+status: 3
+tags: []
+user_id: ahc38
