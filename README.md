@@ -1,6 +1,6 @@
 # 🏠 California Housing Price Prediction – End-to-End ML Deployment
 
-Docker Hub Link :- https://hub.docker.com/repository/docker/atharvchaudharibits/california-housing-app
+Docker Hub Link :- [https://hub.docker.com/repository/docker/atharvchaudharibits/california-housing-app](https://hub.docker.com/r/atharvchaudharibits/california-housing-app)
 
 This project builds a complete, production-grade machine learning system for predicting California housing prices, covering data versioning, model tracking, API deployment, CI/CD, and monitoring.
 
