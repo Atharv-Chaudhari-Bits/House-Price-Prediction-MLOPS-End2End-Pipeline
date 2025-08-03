@@ -1,5 +1,11 @@
 from fastapi.testclient import TestClient
-from California_Housing_Price_Prediction.api.app import app
+import os
+import sys
+
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'California-Housing-Price-Prediction'))
+sys.path.append(root_dir)
+
+from api.app import app
 
 client = TestClient(app)
 
