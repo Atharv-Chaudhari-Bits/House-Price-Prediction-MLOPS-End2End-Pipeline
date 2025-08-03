@@ -8,3 +8,6 @@ mlflow
 jinja2
 python-multipart
 xgboost
+pytest
+prometheus_client
+prometheus_fastapi_instrumentator 

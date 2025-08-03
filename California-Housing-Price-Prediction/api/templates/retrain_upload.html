@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retrain Model</title>
+</head>
+<body>
+    <h2>📤 Upload New CSV for Retraining</h2>
+    <form action="/retrain" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Retrain</button>
+    </form>
+
+    {% if message %}
+        <h3>{{ message }}</h3>
+    {% endif %}
+
+    {% if data %}
+        <h4>📋 Preview of Uploaded Data:</h4>
+        {{ data | safe }}
+    {% endif %}
+</body>
+</html>
